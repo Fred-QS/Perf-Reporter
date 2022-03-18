@@ -11,7 +11,7 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 class DisplayerController extends AbstractController
 {
     #[Route('/perf-reporter', name: 'perf-reporter:display')]
-    public function index() :void
+    public function index() :Response
     {
         echo 'test';
     }

@@ -1,5 +1,12 @@
 services:
-  smile_perfreporter.response_subscriber:
-    class: Smile\PerfreporterBundle\EventSubscriber\ResponseSubscriber
-    tags:
-      - { name: kernel.event_subscriber }
+  _defaults:
+    autowire: true      # Automatically injects dependencies in your services.
+    autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+
+
+  Tuto\ToolsBundle\:
+    resource: '../../'
+    exclude:
+      - '../../DependencyInjection/'
+      - '../../Resources/'
+      - '../../Tests/'
