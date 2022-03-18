@@ -12,12 +12,12 @@ class ResponseSubscriber implements EventSubscriberInterface
     {
         return [
             KernelEvents::RESPONSE => [
-                ['addSecurityHeaders', 0],
+                ['addPerfreporter', 0],
             ],
         ];
     }
 
-    public function addSecurityHeaders(ResponseEvent $event)
+    public function addPerfreporter(ResponseEvent $event)
     {
         $response = $event->getResponse();
         $response->headers->set('X-Header-Set-By', 'Perfs Reporter');
