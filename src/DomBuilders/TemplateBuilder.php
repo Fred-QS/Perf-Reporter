@@ -2,6 +2,10 @@
 
 namespace Smile\DomBuilders;
 
+use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Filesystem\Path;
+
 class TemplateBuilder
 {
     private static string $html;
@@ -99,5 +103,11 @@ class TemplateBuilder
         }
         fwrite($create, $content);
         fclose($create);
+    }
+
+    protected static function test() :string
+    {
+        $path = Path::getHomeDirectory();
+        return $path;
     }
 }

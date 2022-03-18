@@ -46,10 +46,11 @@ class PerformancesLogger extends TemplateBuilder
 
     public static function getResult() :self
     {
-        self::cleanFiles(self::$reportFolder, self::$max);
+        /*self::cleanFiles(self::$reportFolder, self::$max);
         $file = self::createFile(self::$reportFolder, self::$title);
 
-        self::reportFileClosure($file);
+        self::reportFileClosure($file);*/
+        dump(self::test());
         return new self;
     }
 }
