@@ -1,8 +1,8 @@
 <?php
 
-namespace Smile\DomBuilders;
+namespace Smile\PerfreporterBundle\DomBuilders;
 
-use Smile\DomBuilders\FileSystem;
+use Smile\PerfreporterBundle\DomBuilders\FileSystem;
 
 class TemplateBuilder extends FileSystem
 {

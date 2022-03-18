@@ -1,8 +1,10 @@
 <?php
 
+namespace Smile\PerfreporterBundle;
+
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class PerfsReportBundle
+class SmilePerfreporterBundle
 {
     public function getPath(): string
     {

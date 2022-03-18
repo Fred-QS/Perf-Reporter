@@ -15,17 +15,6 @@
     "php": ">=7.4"
   },
   "autoload": {
-    "psr-4": {"Smile\\": "src"}
-  },
-  "scripts": {
-    "post-package-install": [
-      "@php -r \"mkdir(__DIR__ . '/Test')\""
-    ],
-    "post-package-update": [
-      "@php -r \"mkdir(__DIR__ . '/Test')\""
-    ]
-  },
-  "autoload-dev": {
-    "psr-4": {"Smile\\": "tests"}
+    "psr-4": {"Smile\\PerfreporterBundle\\": ""}
   }
 }
