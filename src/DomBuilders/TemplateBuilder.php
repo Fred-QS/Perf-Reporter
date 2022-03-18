@@ -26,7 +26,7 @@ class TemplateBuilder extends FileSystem
                     --hover-bg: lightblue;
                     --hover-color: #fff;
                 }
-                <?= file_get_contents(dirname(__DIR__) . '/assets/style.css') . "\n" ?>
+                <?= file_get_contents(dirname(__DIR__, 2) . '/assets/style.css') . "\n" ?>
             </style>
         </head>
         <body>
@@ -38,7 +38,7 @@ class TemplateBuilder extends FileSystem
     {
         ob_start(); ?>
         <script>
-            <?= file_get_contents(dirname(__DIR__) . '/assets/script.js') . "\n" ?>
+            <?= file_get_contents(dirname(__DIR__, 2) . '/assets/script.js') . "\n" ?>
         </script>
         </body>
         </html>
