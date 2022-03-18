@@ -15,7 +15,7 @@
     "php": ">=7.4"
   },
   "require-dev": {
-    "symfony/filesystem": ">=5.4.6"
+    "symfony/filesystem": ">=6.0.6"
   },
   "autoload": {
     "psr-4": {"Smile\\": "src"}
