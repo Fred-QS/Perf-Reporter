@@ -1,5 +1,5 @@
 {
-  "name": "smile/perfs-reporter",
+  "name": "smilian/perfs-reporter",
   "description": "Measures the performance of PHP code for Symfony projects. Process measurements, lead times, file location...",
   "keywords": ["log", "logging", "psr-3"],
   "homepage": "https://github.com/Fred-QS/PerformancesLogger",
