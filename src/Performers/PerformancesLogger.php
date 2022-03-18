@@ -6,39 +6,38 @@ use Smile\DomBuilders\TemplateBuilder;
 
 class PerformancesLogger extends TemplateBuilder
 {
-    private static string $title;
-    private static int $end;
-    private static array $steps;
-    private static array $header;
-    private static string $reportFolder;
+    private static string $title = 'Performances and Measurement';
+    private static string $start;
+    private static int $total = 0;
+    private static array $steps = [];
+    private static array $header = [];
     private static int $max = 4;
 
-    public static function setMax($val) :self
+    public static function setMax(int $val) :self
     {
         self::$max = $val;
         return new self;
     }
 
-    public static function setTitle($data) :self
+    public static function setTitle(string $data) :self
     {
         self::$title = $data;
-        self::$reportFolder = dirname(__DIR__, 2) . '/reports';
         return new self;
     }
 
-    public static function setEnd($data) :self
+    public static function setTotal(int $data) :self
     {
-        self::$end = $data;
+        self::$total = $data;
         return new self;
     }
 
-    public static function setSteps($data) :self
+    public static function setSteps(array $data) :self
     {
         self::$steps[] = $data;
         return new self;
     }
 
-    public static function setHeader($key, $value) :self
+    public static function setHeader(string $key, mixed $value) :self
     {
         self::$header[$key] = $value;
         return new self;
@@ -46,11 +45,34 @@ class PerformancesLogger extends TemplateBuilder
 
     public static function getResult() :self
     {
-        /*self::cleanFiles(self::$reportFolder, self::$max);
-        $file = self::createFile(self::$reportFolder, self::$title);
+        // Remove older files until files count = self::$max
+        self::cleanFiles(self::$max);
 
-        self::reportFileClosure($file);*/
-        dump(self::test());
+        // Create Report file
+        $file = self::createFile(
+            self::$title,
+            self::setHTMLHeadTag(self::$title)
+        );
+
+        // Fill data in created file
+        $content = self::fillFileLines(
+            $file,
+            self::$header,
+            self::$steps
+        );
+
+        // Close created file
+        self::reportFileClosure(
+            $file,
+            $content,
+            self::setHTMLFooterTag()
+        );
+
         return new self;
+    }
+
+    public static function deleteReports() :string
+    {
+        return self::removeReportsFolder();
     }
 }
