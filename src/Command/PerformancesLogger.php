@@ -1,6 +1,6 @@
 <?php
 
-namespace Smile\Performers;
+namespace Smile\Command;
 
 use Smile\DomBuilders\TemplateBuilder;
 
