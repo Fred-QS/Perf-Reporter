@@ -4,7 +4,7 @@ namespace Smile\PerfreporterBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class SmilePerfreporterBundle
+class SmilePerfreporterBundle extends Bundle
 {
     public function getPath(): string
     {
