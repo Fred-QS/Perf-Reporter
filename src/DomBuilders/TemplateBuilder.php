@@ -18,6 +18,14 @@ class TemplateBuilder
             <meta http-equiv="X-UA-Compatible" content="ie=edge">
             <title><?= $title ?> at <?= date("Y-m-d H:i") ?></title>
             <style>
+                :root {
+                    --primary-bg: steelblue;
+                    --secondary-bg: firebrick;
+                    --primary-color: #141414;
+                    --secondary-color: #fff;
+                    --hover-bg: lightblue;
+                    --hover-color: #fff;
+                }
                 <?= file_get_contents(__DIR__ . '/assets/style.css') . "\n" ?>
             </style>
         </head>
