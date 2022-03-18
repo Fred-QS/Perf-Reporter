@@ -23,29 +23,34 @@ class FileSystem
 
     protected static function cleanFiles(int $max) :void
     {
-        $files = scandir(self::$reportFolder);
-        $excepts = ['.', '..'];
-        $reports = [];
+        $dir = self::$reportFolder;
 
-        foreach ($files as $file) {
+        if (file_exists($dir)) {
 
-            if (!in_array($file, $excepts, true) && is_file(self::$reportFolder . '/' . $file)) {
+            $files = scandir($dir);
+            $excepts = ['.', '..'];
+            $reports = [];
 
-                $reports[] = self::$reportFolder . '/' . $file;
-            }
-        }
+            foreach ($files as $file) {
 
-        if (count($reports) >= $max) {
+                if (!in_array($file, $excepts, true) && is_file($dir . '/' . $file)) {
 
-            $counter = count($reports);
-
-            while ($counter >= $max) {
-
-                $shift = array_shift($reports);
-                if (file_exists($shift)) {
-                    unlink($shift);
+                    $reports[] = $dir . '/' . $file;
                 }
-                $counter--;
+            }
+
+            if (count($reports) >= $max) {
+
+                $counter = count($reports);
+
+                while ($counter >= $max) {
+
+                    $shift = array_shift($reports);
+                    if (file_exists($shift)) {
+                        unlink($shift);
+                    }
+                    $counter--;
+                }
             }
         }
     }
