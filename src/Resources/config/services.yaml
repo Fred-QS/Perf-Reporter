@@ -1,0 +1,5 @@
+services:
+  smile_perfreporter.response_subscriber:
+    class: Smile\PerfreporterBundle\EventSubscriber\ResponseSubscriber
+    tags:
+      - { name: kernel.event_subscriber }

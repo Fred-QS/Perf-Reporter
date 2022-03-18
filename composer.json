@@ -15,6 +15,6 @@
     "php": ">=7.4"
   },
   "autoload": {
-    "psr-4": {"Smile\\PerfreporterBundle\\": ""}
+    "psr-4": {"Smile\\PerfreporterBundle\\": "src/"}
   }
 }
