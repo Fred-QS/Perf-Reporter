@@ -3,6 +3,7 @@
 namespace Smile\Perfreporter\DomBuilders;
 
 use Smile\Perfreporter\DomBuilders\FileSystem;
+use Carbon\Carbon;
 
 class TemplateBuilder extends FileSystem
 {
@@ -31,6 +32,7 @@ class TemplateBuilder extends FileSystem
         </head>
         <body>
         <span id="export-pdf">Export PDF</span>
+        <h1><?= $title ?> at <?= date("Y-m-d H:i") ?></h1>
         <?php return ob_get_clean();
     }
 

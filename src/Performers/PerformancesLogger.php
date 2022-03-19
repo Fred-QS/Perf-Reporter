@@ -43,7 +43,7 @@ class PerformancesLogger extends TemplateBuilder
         return new self;
     }
 
-    public static function getResult() :self
+    public static function getResult() :string
     {
         // Remove older files until files count = self::$max
         self::cleanFiles(self::$max);
@@ -62,13 +62,13 @@ class PerformancesLogger extends TemplateBuilder
         );
 
         // Close created file
-        self::reportFileClosure(
+        $html = self::reportFileClosure(
             $file,
             $content,
             self::setHTMLFooterTag()
         );
 
-        return new self;
+        return $html;
     }
 
     public static function deleteReports() :string

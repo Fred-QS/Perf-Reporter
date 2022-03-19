@@ -55,20 +55,22 @@ class FileSystem
         }
     }
 
-    protected static function reportFileClosure(string $file, string $lines, string $footer) :void
+    protected static function reportFileClosure(string $file, string $lines, string $footer) :string
     {
-        $create = fopen($file, 'wb');
+        //$create = fopen($file, 'wb');
         $txt = self::$html;
         $txt .= "\n" . $lines;
         $txt .= "\n" . $footer;
 
-        $array = explode("\n", $txt);
+        /*$array = explode("\n", $txt);
         $content = '';
         foreach ($array as $row) {
             $content .= trim(str_replace(["\r", "\n", "\t"], '', $row));
         }
         fwrite($create, $content);
-        fclose($create);
+        fclose($create);*/
+
+        return $txt;
     }
 
     protected static function removeReportsFolder() :string
