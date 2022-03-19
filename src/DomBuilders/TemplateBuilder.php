@@ -61,10 +61,10 @@ class TemplateBuilder extends FileSystem
 
     protected static function fillFileLines(string $file, array $header, array $steps, float $total) :string
     {
-        $header = self::parseToList($header);
-        $steps = self::stepsParser($steps);
+        $parsed_header = self::parseToList($header);
+        $parsed_steps = self::stepsParser($steps);
         ob_start(); ?>
-        <?= $header . "\n" . $steps ?>
+        <?= $parsed_header . "\n" . $parsed_steps ?>
         <?php return ob_get_clean();
     }
 
@@ -117,7 +117,7 @@ class TemplateBuilder extends FileSystem
             foreach ($steps as $step) {
                 $html .= '<ul>';
                 foreach ($step as $key => $value) {
-                    if (strlen($value > 0)) {
+                    if ($value !== '') {
                         $html .= '<li><b>' . $key . ': </b>' . $value . '</li>';
                     }
                 }

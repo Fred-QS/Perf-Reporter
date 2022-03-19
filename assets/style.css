@@ -17,6 +17,14 @@ section {
     border-radius: 6px;
     box-shadow: 6px 6px 8px rgba(0, 0, 0, 0.1);
     background-color: #fff;
+    position: relative;
+}
+
+#smile-logo {
+    height: 2.5cm;
+    top: 0.5cm;
+    left: 1cm;
+    position: absolute;
 }
 
 ul {
@@ -50,29 +58,49 @@ ul {
     flex-direction: column;
     justify-content: center;
     align-content: center;
-    text-align: center;
+    text-align: right;
     margin: 0 auto 40px;
+    align-self: end;
+}
+
+#title small {
+    color: var(--secondary-bg);
 }
 
 #title i {
     color: var(--primary-bg);
 }
 
-.list-title {
+.list-title, .steps-title {
     width: 100%;
-    background-color: var(--primary-bg);
     color: var(--secondary-color);
     padding: 5px;
     font-weight: bold;
     margin-bottom: 10px;
 }
 
-.lists-container {
+.list-title {
+    background-color: var(--primary-bg);
+}
+
+.steps-title {
+    background-color: var(--secondary-bg);
+}
+
+.lists-container, #steps-container {
     margin: 20px 0;
     padding: 10px;
     box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.1);
     background-color: #f7f7f7;
     border-radius: 4px;
+}
+
+#steps-container > i {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 100%;
 }
 
 .list-bloc {

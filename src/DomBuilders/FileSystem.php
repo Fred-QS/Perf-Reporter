@@ -89,11 +89,60 @@ class FileSystem
                 }
             }
 
-            unlink(self::$reportFolder);
+            rmdir(self::$reportFolder);
             return 'reports/ folder as been removed.';
         }
 
         return 'reports/ folder does not exist.';
+    }
+
+    protected static function removeAddedFolders(string $folder) :string
+    {
+        $dir = null;
+        $name = null;
+
+        switch ($folder) {
+
+            case 'command':
+                $dir = dirname(self::$reportFolder . '/src/Command/PerfReporter');
+                $name = 'Command/PerfReporter';
+                break;
+
+            case 'controller':
+                $dir = dirname(self::$reportFolder . '/src/Controller/DisplayPerfReportsController.php');
+                $name = 'Controller/DisplayPerfReportsController.php';
+                break;
+
+            default: break;
+        }
+
+        if (!is_null($dir) && file_exists($dir)) {
+
+            if ($folder === 'controller') {
+
+                unlink($dir);
+                return $name . '/ file has been removed.';
+
+            } else {
+
+                $excepts = ['.', '..'];
+                $files = scandir($dir);
+
+                foreach ($files as $file) {
+
+                    $fullPath = $dir . '/' . $file;
+
+                    if (!in_array($file, $excepts, true) && is_file($fullPath) && file_exists($fullPath)) {
+                        unlink($fullPath);
+                    }
+                }
+
+                rmdir($dir);
+                return $name . '/ folder has been removed.';
+            }
+        }
+
+        return $name . '/ does not exist.';
     }
 
     protected static function convertImageToBase64(string $path) :string
@@ -101,5 +150,61 @@ class FileSystem
         $type = pathinfo($path, PATHINFO_EXTENSION);
         $data = file_get_contents($path);
         return 'data:image/' . $type . ';base64,' . base64_encode($data);
+    }
+
+    protected static function addFolder($folder) :string
+    {
+        $dest = null;
+        $name = null;
+        $original = null;
+
+        switch ($folder) {
+            case 'command':
+                $original = dirname(__DIR__) . '/Command';
+                $dest = dirname(self::$reportFolder . '/src/Command/PerfReporter');
+                $name = 'Command/PerfReporter';
+                break;
+            case 'controller':
+                $original = dirname(__DIR__) . '/Controller/DisplayPerfReportsController.php';
+                $dest = dirname(self::$reportFolder . '/src/Controller/DisplayPerfReportsController.php');
+                $name = 'Controller/DisplayPerfReportsController.php';
+                break;
+            default: break;
+        }
+
+        if (!is_null($original) && file_exists($original)) {
+
+            if ($folder === 'controller') {
+
+                if (!copy($original, $dest)) {
+                    return $name . ' copy failed...';
+                }
+
+                return $name . '/ file has been added.';
+
+            }
+
+            if ($folder === 'command') {
+
+                if (!file_exists($dest) && !mkdir($dest, 0777, true) && !is_dir(self::$reportFolder)) {
+
+                    throw new \RuntimeException(sprintf('Directory "%s" was not created', self::$reportFolder));
+                }
+
+                $files = scandir($original);
+                $excepts = ['.', '..'];
+                foreach ($files as $file) {
+                    if (!in_array($file, $excepts, true) && !copy($original . '/' . $file, $dest . '/' . $file)) {
+                        return $name . ' copy failed...';
+                    }
+                }
+
+                return $name . '/ files have been added.';
+            }
+
+            return $folder . ' is unknown mode...';
+        }
+
+        return $name . '/ does not exist.';
     }
 }
