@@ -1,6 +1,6 @@
 <?php
 
-namespace Smile\PerfreporterBundle\DomBuilders;
+namespace Smile\Perfreporter\DomBuilders;
 
 define("SMILE_REPORTS_PATH", explode('vendor', __DIR__)[0] . '/reports');
 

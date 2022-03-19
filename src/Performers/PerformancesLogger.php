@@ -1,8 +1,8 @@
 <?php
 
-namespace Smile\PerfreporterBundle\Performers;
+namespace Smile\Perfreporter\Performers;
 
-use Smile\PerfreporterBundle\DomBuilders\TemplateBuilder;
+use Smile\Perfreporter\DomBuilders\TemplateBuilder;
 
 class PerformancesLogger extends TemplateBuilder
 {
