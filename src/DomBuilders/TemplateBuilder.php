@@ -3,10 +3,13 @@
 namespace Smile\Perfreporter\DomBuilders;
 
 use Smile\Perfreporter\DomBuilders\FileSystem;
+use Smile\Perfreporter\Traits\ConvertorsTrait;
 use Carbon\Carbon;
 
 class TemplateBuilder extends FileSystem
 {
+    use ConvertorsTrait;
+
     protected static function setHTMLHeadTag(string $title) :string
     {
         date_default_timezone_set('Europe/Paris');
@@ -21,11 +24,11 @@ class TemplateBuilder extends FileSystem
             <title><?= $title ?> au <?= Carbon::now()->isoFormat('LLL') ?></title>
             <style>
                 :root {
-                    --primary-bg: steelblue;
-                    --secondary-bg: firebrick;
+                    --primary-bg: #006FB8;
+                    --secondary-bg: #EF7B47;
                     --primary-color: #141414;
                     --secondary-color: #fff;
-                    --hover-bg: lightblue;
+                    --hover-bg: #EF7B47;
                     --hover-color: #fff;
                 }
                 <?= file_get_contents(dirname(__DIR__, 2) . '/assets/reset.css') . "\n" ?>
@@ -33,10 +36,11 @@ class TemplateBuilder extends FileSystem
             </style>
         </head>
         <body>
-        <img id="smile-logo" src="<?= self::convertImageToBase64(dirname(__DIR__, 2) . '/assets/logo.png') ?>" alt="Smile Open Source">
         <span id="export-pdf">Export PDF</span>
         <section>
+        <img id="smile-logo" src="<?= self::convertImageToBase64(dirname(__DIR__, 2) . '/assets/logo.png') ?>" alt="Smile Open Source">
         <div id="title">
+            <small>SMILE - Perfs Reporter Logs</small>
             <h1><?= $title ?></h1>
             <i>au <?= Carbon::now()->isoFormat('LLL') ?></i>
         </div>
@@ -55,7 +59,7 @@ class TemplateBuilder extends FileSystem
         <?php return ob_get_clean();
     }
 
-    protected static function fillFileLines(string $file, array $header, array $steps) :string
+    protected static function fillFileLines(string $file, array $header, array $steps, float $total) :string
     {
         $header = self::parseToList($header);
         $steps = self::stepsParser($steps);
@@ -108,7 +112,21 @@ class TemplateBuilder extends FileSystem
 
     private static function stepsParser($steps) : string
     {
-
-        return 'steps';
+        $html = '<div id="steps-container"><p class="steps-title">Steps</p>';
+        if (!empty($steps)) {
+            foreach ($steps as $step) {
+                $html .= '<ul>';
+                foreach ($step as $key => $value) {
+                    if (strlen($value > 0)) {
+                        $html .= '<li><b>' . $key . ': </b>' . $value . '</li>';
+                    }
+                }
+                $html .= '</ul>';
+            }
+        } else {
+            $html .= '<i>No step set.</i>';
+        }
+        $html .= '</div>';
+        return $html;
     }
 }

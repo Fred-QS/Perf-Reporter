@@ -8,7 +8,7 @@ class PerformancesLogger extends TemplateBuilder
 {
     private static string $title = 'Performances and Measurement';
     private static string $start;
-    private static int $total = 0;
+    private static float $total = 0;
     private static array $steps = [];
     private static array $header = [];
     private static int $max = 4;
@@ -31,9 +31,16 @@ class PerformancesLogger extends TemplateBuilder
         return new self;
     }
 
-    public static function setSteps(array $data) :self
+    public static function setStep(string $data) :self
     {
-        self::$steps[] = $data;
+        $time = microtime(true);
+        self::$steps[] = [
+            'Information' => $data,
+            'Trace' => debug_backtrace(),
+            'Time lapse' => $time,
+            'Memory usage' => memory_get_usage()
+        ];
+        self::$total += $time;
         return new self;
     }
 
@@ -58,7 +65,8 @@ class PerformancesLogger extends TemplateBuilder
         $content = self::fillFileLines(
             $file,
             self::$header,
-            self::$steps
+            self::$steps,
+            self::$total
         );
 
         // Close created file
