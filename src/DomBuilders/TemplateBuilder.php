@@ -152,10 +152,8 @@ class TemplateBuilder extends FileSystem
         return $exists;
     }
 
-    protected static function setHTMLListForFrontEnd() :string
+    private static function mainTemplate(string $title, string $content) :string
     {
-        $exists = self::getExistingReports();
-
         ob_start(); ?>
         <!DOCTYPE html>
         <html lang="en_EN">
@@ -163,7 +161,7 @@ class TemplateBuilder extends FileSystem
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
             <meta http-equiv="X-UA-Compatible" content="ie=edge">
-            <title>Perfs Reports List</title>
+            <title><?= $title ?></title>
             <style>
                 :root {
                     --primary-bg: #006FB8;
@@ -178,6 +176,17 @@ class TemplateBuilder extends FileSystem
             </style>
         </head>
         <body>
+        <?= $content ?>
+        </body>
+        </html>
+        <?php return ob_get_clean();
+    }
+
+    protected static function setHTMLListForFrontEnd() :string
+    {
+        $exists = self::getExistingReports();
+
+        ob_start(); ?>
         <main>
             <p id="title">Performance reports list :</p>
             <ul id="reports-list">
@@ -188,8 +197,13 @@ class TemplateBuilder extends FileSystem
                 <?php endforeach; ?>
             </ul>
         </main>
-        </body>
-        </html>
-        <?php return ob_get_clean();
+        <?php $content = ob_get_clean();
+
+        return self::mainTemplate('Perfs Reports List', $content);
+    }
+
+    protected static function selectedReport(string $path) :string
+    {
+        return self::getSelectedReport($path);
     }
 }

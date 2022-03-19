@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Smile\Perfreporter\Performers\PerformancesLogger;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 #[Route('/perf-reporter')]
 class DisplayPerfReportsController extends AbstractController
@@ -21,6 +22,12 @@ class DisplayPerfReportsController extends AbstractController
     #[Route('/{id}', name: 'perf-reporter:one')]
     public function report(string $id) :Response
     {
-        return new Response($id);
+        $logs = PerformancesLogger::getReportList();
+        foreach ($logs as $log) {
+            if ($log['id'] === $id) {
+                return new Response(PerformancesLogger::getReport($log['path']));
+            }
+        }
+        throw new NotFoundHttpException('This report does not exist');
     }
 }

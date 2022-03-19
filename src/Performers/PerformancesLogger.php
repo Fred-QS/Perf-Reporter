@@ -82,11 +82,16 @@ class PerformancesLogger extends TemplateBuilder
         return self::removeReportsFolder();
     }
 
-    public static function getReportList(string $mode) : string|array
+    public static function getReportList(string $mode = '') : string|array
     {
         if ($mode === 'html') {
             return self::setHTMLListForFrontEnd();
         }
         return self::getExistingReports();
+    }
+
+    public static function getReport(string $path) :string
+    {
+        return self::selectedReport($path);
     }
 }
