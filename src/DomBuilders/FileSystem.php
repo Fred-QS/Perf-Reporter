@@ -16,7 +16,7 @@ class FileSystem
             throw new \RuntimeException(sprintf('Directory "%s" was not created', self::$reportFolder));
         }
 
-        $file = self::$reportFolder . '/' . date("YmdHis") . '-perf-report.html';
+        $file = self::$reportFolder . '/' . (date("YmdHis")) . '-perf-report.html';
         self::$html = $head . "\n";
         return $file;
     }
@@ -94,5 +94,12 @@ class FileSystem
         }
 
         return 'reports/ folder does not exist.';
+    }
+
+    protected static function convertImageToBase64(string $path) :string
+    {
+        $type = pathinfo($path, PATHINFO_EXTENSION);
+        $data = file_get_contents($path);
+        return 'data:image/' . $type . ';base64,' . base64_encode($data);
     }
 }

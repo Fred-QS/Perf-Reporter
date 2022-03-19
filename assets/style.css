@@ -44,13 +44,18 @@ ul {
     background-color: var(--hover-bg);
     color: var(--hover-color);
 }
+
 #title {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-content: center;
     text-align: center;
-    margin: auto;
+    margin: 0 auto 40px;
+}
+
+#title i {
+    color: var(--primary-bg);
 }
 
 .list-title {

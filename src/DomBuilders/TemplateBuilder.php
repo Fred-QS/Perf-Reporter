@@ -33,6 +33,7 @@ class TemplateBuilder extends FileSystem
             </style>
         </head>
         <body>
+        <img id="smile-logo" src="<?= self::convertImageToBase64(dirname(__DIR__, 2) . '/assets/logo.png') ?>" alt="Smile Open Source">
         <span id="export-pdf">Export PDF</span>
         <section>
         <div id="title">
@@ -57,8 +58,9 @@ class TemplateBuilder extends FileSystem
     protected static function fillFileLines(string $file, array $header, array $steps) :string
     {
         $header = self::parseToList($header);
+        $steps = self::stepsParser($steps);
         ob_start(); ?>
-        <?= $header ?>
+        <?= $header . "\n" . $steps ?>
         <?php return ob_get_clean();
     }
 
@@ -102,5 +104,11 @@ class TemplateBuilder extends FileSystem
         $html .= '</div>';
 
         return $html;
+    }
+
+    private static function stepsParser($steps) : string
+    {
+
+        return 'steps';
     }
 }
