@@ -2,11 +2,11 @@
 
 namespace Smile\Perfreporter\DomBuilders;
 
-define("SMILE_REPORTS_PATH", explode('vendor', __DIR__)[0] . '/reports');
+define("SMILE_REPORTS_PATH", explode('vendor', __DIR__)[0] . 'reports');
 
 class FileSystem
 {
-    private static string $reportFolder = SMILE_REPORTS_PATH;
+    protected static string $reportFolder = SMILE_REPORTS_PATH;
     private static string $html = '';
 
     protected static function createFile(string $title, string $head) :string
@@ -57,18 +57,18 @@ class FileSystem
 
     protected static function reportFileClosure(string $file, string $lines, string $footer) :string
     {
-        //$create = fopen($file, 'wb');
+        $create = fopen($file, 'wb');
         $txt = self::$html;
         $txt .= "\n" . $lines;
         $txt .= "\n" . $footer;
 
-        /*$array = explode("\n", $txt);
+        $array = explode("\n", $txt);
         $content = '';
         foreach ($array as $row) {
             $content .= trim(str_replace(["\r", "\n", "\t"], '', $row));
         }
         fwrite($create, $content);
-        fclose($create);*/
+        fclose($create);
 
         return $txt;
     }
@@ -161,12 +161,12 @@ class FileSystem
         switch ($folder) {
             case 'command':
                 $original = dirname(__DIR__) . '/Command';
-                $dest = dirname(self::$reportFolder . '/src/Command/PerfReporter');
+                $dest = dirname(self::$reportFolder) . '/src/Command/PerfReporter';
                 $name = 'Command/PerfReporter';
                 break;
             case 'controller':
                 $original = dirname(__DIR__) . '/Controller/DisplayPerfReportsController.php';
-                $dest = dirname(self::$reportFolder . '/src/Controller/DisplayPerfReportsController.php');
+                $dest = dirname(self::$reportFolder) . '/src/Controller/DisplayPerfReportsController.php';
                 $name = 'Controller/DisplayPerfReportsController.php';
                 break;
             default: break;
@@ -181,19 +181,19 @@ class FileSystem
                 }
 
                 return $name . '/ file has been added.';
-
             }
 
             if ($folder === 'command') {
 
-                if (!file_exists($dest) && !mkdir($dest, 0777, true) && !is_dir(self::$reportFolder)) {
+                if (!file_exists($dest) && !mkdir($dest, 0777, true) && !is_dir($dest)) {
 
-                    throw new \RuntimeException(sprintf('Directory "%s" was not created', self::$reportFolder));
+                    throw new \RuntimeException(sprintf('Directory "%s" was not created', $dest));
                 }
 
                 $files = scandir($original);
                 $excepts = ['.', '..'];
                 foreach ($files as $file) {
+
                     if (!in_array($file, $excepts, true) && !copy($original . '/' . $file, $dest . '/' . $file)) {
                         return $name . ' copy failed...';
                     }

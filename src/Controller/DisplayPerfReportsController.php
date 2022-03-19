@@ -12,9 +12,15 @@ use Smile\Perfreporter\Performers\PerformancesLogger;
 #[Route('/perf-reporter')]
 class DisplayPerfReportsController extends AbstractController
 {
-    #[Route('', name: 'perf-reporter:display')]
+    #[Route('', name: 'perf-reporter:list')]
     public function display() :Response
     {
-        return new Response('Salut');
+        return new Response(PerformancesLogger::getReportList('html'));
+    }
+
+    #[Route('/{id}', name: 'perf-reporter:one')]
+    public function report(string $id) :Response
+    {
+        return new Response($id);
     }
 }

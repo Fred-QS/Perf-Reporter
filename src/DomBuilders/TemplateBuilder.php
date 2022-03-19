@@ -129,4 +129,67 @@ class TemplateBuilder extends FileSystem
         $html .= '</div>';
         return $html;
     }
+
+    protected static function getExistingReports() :array
+    {
+        $files = scandir(self::$reportFolder);
+        $exists = [];
+        $excepts = ['.', '..'];
+
+        foreach ($files as $file) {
+
+            $path = self::$reportFolder . '/' . $file;
+            if (!in_array($file, $excepts, true) && is_file($path)) {
+
+                $exists[] = [
+                    'id' => str_replace('.html', '', $file),
+                    'name' => 'Report from the ' . self::convertDateFromFIleName($file),
+                    'path' => $path
+                ];
+            }
+        }
+
+        return $exists;
+    }
+
+    protected static function setHTMLListForFrontEnd() :string
+    {
+        $exists = self::getExistingReports();
+
+        ob_start(); ?>
+        <!DOCTYPE html>
+        <html lang="en_EN">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+            <meta http-equiv="X-UA-Compatible" content="ie=edge">
+            <title>Perfs Reports List</title>
+            <style>
+                :root {
+                    --primary-bg: #006FB8;
+                    --secondary-bg: #EF7B47;
+                    --primary-color: #141414;
+                    --secondary-color: #fff;
+                    --hover-bg: #EF7B47;
+                    --hover-color: #fff;
+                }
+                <?= file_get_contents(dirname(__DIR__, 2) . '/assets/reset.css') . "\n" ?>
+                <?= file_get_contents(dirname(__DIR__, 2) . '/assets/front.css') . "\n" ?>
+            </style>
+        </head>
+        <body>
+        <main>
+            <p id="title">Performance reports list :</p>
+            <ul id="reports-list">
+                <?php foreach ($exists as $file) : ?>
+                    <li>
+                        <a href="/perf-reporter/<?= $file['id'] ?>"><?= $file['name'] ?></a>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+        </main>
+        </body>
+        </html>
+        <?php return ob_get_clean();
+    }
 }

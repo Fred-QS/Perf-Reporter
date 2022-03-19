@@ -70,17 +70,23 @@ class PerformancesLogger extends TemplateBuilder
         );
 
         // Close created file
-        $html = self::reportFileClosure(
+        return self::reportFileClosure(
             $file,
             $content,
             self::setHTMLFooterTag()
         );
-
-        return $html;
     }
 
     public static function deleteReports() :string
     {
         return self::removeReportsFolder();
+    }
+
+    public static function getReportList(string $mode) : string|array
+    {
+        if ($mode === 'html') {
+            return self::setHTMLListForFrontEnd();
+        }
+        return self::getExistingReports();
     }
 }
