@@ -55,8 +55,11 @@ class PerformancesLogger extends TemplateBuilder
         // Remove older files until files count = self::$max
         self::cleanFiles(self::$max);
 
+        $fileName = (date("YmdHis")) . '-perf-report';
+
         // Create Report file
         $file = self::createFile(
+            $fileName,
             self::$title,
             self::setHTMLHeadTag(self::$title)
         );
@@ -73,7 +76,7 @@ class PerformancesLogger extends TemplateBuilder
         return self::reportFileClosure(
             $file,
             $content,
-            self::setHTMLFooterTag()
+            self::setHTMLFooterTag($fileName)
         );
     }
 

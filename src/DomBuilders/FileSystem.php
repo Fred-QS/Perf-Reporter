@@ -9,14 +9,14 @@ class FileSystem
     protected static string $reportFolder = SMILE_REPORTS_PATH;
     private static string $html = '';
 
-    protected static function createFile(string $title, string $head) :string
+    protected static function createFile(string $fileName, string $title, string $head) :string
     {
         if (!file_exists(self::$reportFolder) && !mkdir(self::$reportFolder, 0777, true) && !is_dir(self::$reportFolder)) {
 
             throw new \RuntimeException(sprintf('Directory "%s" was not created', self::$reportFolder));
         }
 
-        $file = self::$reportFolder . '/' . (date("YmdHis")) . '-perf-report.html';
+        $file = self::$reportFolder . '/' . $fileName . '.html';
         self::$html = $head . "\n";
         return $file;
     }

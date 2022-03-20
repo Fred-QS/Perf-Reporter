@@ -19,7 +19,6 @@ class TemplateBuilder extends FileSystem
         <html lang="en_EN">
         <head>
             <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
             <meta http-equiv="X-UA-Compatible" content="ie=edge">
             <title><?= $title ?> au <?= Carbon::now()->isoFormat('LLL') ?></title>
             <style>
@@ -31,14 +30,14 @@ class TemplateBuilder extends FileSystem
                     --hover-bg: #EF7B47;
                     --hover-color: #fff;
                 }
-                <?= file_get_contents(dirname(__DIR__, 2) . '/assets/reset.css') . "\n" ?>
-                <?= file_get_contents(dirname(__DIR__, 2) . '/assets/style.css') . "\n" ?>
+                <?= file_get_contents(dirname(__DIR__, 2) . '/public/css/reset.css') . "\n" ?>
+                <?= file_get_contents(dirname(__DIR__, 2) . '/public/css/style.css') . "\n" ?>
             </style>
         </head>
         <body>
-        <span id="export-pdf">Export PDF</span>
+        <span id="export-pdf">Print</span>
         <section>
-        <img id="smile-logo" src="<?= self::convertImageToBase64(dirname(__DIR__, 2) . '/assets/logo.png') ?>" alt="Smile Open Source">
+        <img id="smile-logo" src="<?= self::convertImageToBase64(dirname(__DIR__, 2) . '/public/img/logo.png') ?>" alt="Smile Open Source">
         <div id="title">
             <small>SMILE - Perfs Reporter Logs</small>
             <h1><?= $title ?></h1>
@@ -47,12 +46,13 @@ class TemplateBuilder extends FileSystem
         <?php return ob_get_clean();
     }
 
-    protected static function setHTMLFooterTag() :string
+    protected static function setHTMLFooterTag(string $fileName) :string
     {
         ob_start(); ?>
         </section>
         <script>
-            <?= file_get_contents(dirname(__DIR__, 2) . '/assets/script.js') . "\n" ?>
+            const id = '/perf-reporter/<?= $fileName ?>';
+            <?= file_get_contents(dirname(__DIR__, 2) . '/public/js/script.js') . "\n" ?>
         </script>
         </body>
         </html>
@@ -171,8 +171,8 @@ class TemplateBuilder extends FileSystem
                     --hover-bg: #EF7B47;
                     --hover-color: #fff;
                 }
-                <?= file_get_contents(dirname(__DIR__, 2) . '/assets/reset.css') . "\n" ?>
-                <?= file_get_contents(dirname(__DIR__, 2) . '/assets/front.css') . "\n" ?>
+                <?= file_get_contents(dirname(__DIR__, 2) . '/public/css/reset.css') . "\n" ?>
+                <?= file_get_contents(dirname(__DIR__, 2) . '/public/css/front.css') . "\n" ?>
             </style>
         </head>
         <body>
@@ -187,15 +187,24 @@ class TemplateBuilder extends FileSystem
         $exists = self::getExistingReports();
 
         ob_start(); ?>
+        <header>
+            <img id="smile-logo" src="<?= self::convertImageToBase64(dirname(__DIR__, 2) . '/public/img/logo.png') ?>" alt="Smile Open Source">
+            <p>Welcome to the Performance Report Package Page<br/><small>You must create reports by following the <a href="https://github.com/Fred-QS/PerformancesLogger/blob/main/README.md" target="_blank">README</a> file instructions</small></p>
+            <img id="symfony-logo" src="<?= self::convertImageToBase64(dirname(__DIR__, 2) . '/public/img/symfony.png') ?>" alt="Symfony">
+        </header>
         <main>
-            <p id="title">Performance reports list :</p>
-            <ul id="reports-list">
-                <?php foreach ($exists as $file) : ?>
-                    <li>
-                        <a href="/perf-reporter/<?= $file['id'] ?>"><?= $file['name'] ?></a>
-                    </li>
-                <?php endforeach; ?>
-            </ul>
+            <?php if (empty($exists)): ?>
+                <p id="title">No performance report available</p>
+            <?php else: ?>
+                <p id="title">Performance reports list :</p>
+                <ul id="reports-list">
+                    <?php foreach ($exists as $file) : ?>
+                        <li>
+                            <a href="/perf-reporter/<?= $file['id'] ?>"><?= $file['name'] ?></a>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+            <?php endif; ?>
         </main>
         <?php $content = ob_get_clean();
 

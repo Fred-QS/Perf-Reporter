@@ -1,0 +1,85 @@
+body {
+    font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    background-color: #f1f1f1;
+    font-size: 16px;
+}
+
+main {
+    padding: 20px;
+}
+
+#reports-list {
+    margin-left: 20px;
+    padding: 20px 0;
+}
+
+#reports-list li a, header p small a {
+    color: var(--secondary-bg);
+    transition: all linear 0.2s;
+    cursor: pointer;
+}
+
+
+#reports-list li a:hover, header p small a:hover {
+    color: var(--primary-bg);
+}
+
+header {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #3c3c3c;
+    color: #fff;
+    flex-wrap: wrap;
+}
+
+header img {
+    height: 100px;
+}
+
+header p {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    font-size: 18px;
+    padding-right: 150px;
+}
+
+header p small {
+    margin-top: 10px;
+    color: #a1a1a1;
+}
+
+main {
+    width: 90%;
+    max-width: 800px;
+    margin: 40px auto;
+    background-color: #fff;
+    border-radius: 6px;
+    box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+@media only screen and (max-width: 780px) {
+
+    header img {
+        height: 60px;
+    }
+
+    header img:first-child {
+        order: 1;
+    }
+
+    header img:last-child {
+        order: 2;
+    }
+
+    header p {
+        padding: 0;
+        margin: 20px 0;
+        order: 3;
+    }
+}
