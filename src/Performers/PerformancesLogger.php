@@ -2,6 +2,7 @@
 
 namespace Smile\Perfreporter\Performers;
 
+use JetBrains\PhpStorm\Pure;
 use Smile\Perfreporter\DomBuilders\TemplateBuilder;
 
 class PerformancesLogger extends TemplateBuilder
@@ -93,6 +94,7 @@ class PerformancesLogger extends TemplateBuilder
         return self::getExistingReports();
     }
 
+    #[Pure]
     public static function getReport(string $path) :string
     {
         return self::selectedReport($path);

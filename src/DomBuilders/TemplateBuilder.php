@@ -2,6 +2,7 @@
 
 namespace Smile\Perfreporter\DomBuilders;
 
+use JetBrains\PhpStorm\Pure;
 use Smile\Perfreporter\DomBuilders\FileSystem;
 use Smile\Perfreporter\Traits\ConvertorsTrait;
 use Carbon\Carbon;
@@ -21,6 +22,7 @@ class TemplateBuilder extends FileSystem
             <meta charset="UTF-8">
             <meta http-equiv="X-UA-Compatible" content="ie=edge">
             <title><?= $title ?> au <?= Carbon::now()->isoFormat('LLL') ?></title>
+            <link rel="icon" href="<?= self::convertImageToBase64(dirname(__DIR__, 2) . '/public/img/favicon.jpg') ?>">
             <style>
                 :root {
                     --primary-bg: #006FB8;
@@ -35,11 +37,16 @@ class TemplateBuilder extends FileSystem
             </style>
         </head>
         <body>
-        <span id="export-pdf">Print</span>
+        <span id="export-pdf">
+            <svg viewBox="0 0 24 24">
+                <path d="M18 3v3.984h-12v-3.984h12zM18.984 12q0.422 0 0.727-0.281t0.305-0.703-0.305-0.727-0.727-0.305-0.703 0.305-0.281 0.727 0.281 0.703 0.703 0.281zM15.984 18.984v-4.969h-7.969v4.969h7.969zM18.984 8.016q1.219 0 2.109 0.891t0.891 2.109v6h-3.984v3.984h-12v-3.984h-3.984v-6q0-1.219 0.891-2.109t2.109-0.891h13.969z"></path>
+            </svg>
+            Print report
+        </span>
         <section>
         <img id="smile-logo" src="<?= self::convertImageToBase64(dirname(__DIR__, 2) . '/public/img/logo.png') ?>" alt="Smile Open Source">
         <div id="title">
-            <small>SMILE - Perfs Reporter Logs</small>
+            <small>SMILE - Perf Reporter Logs</small>
             <h1><?= $title ?></h1>
             <i>au <?= Carbon::now()->isoFormat('LLL') ?></i>
         </div>
@@ -48,11 +55,12 @@ class TemplateBuilder extends FileSystem
 
     protected static function setHTMLFooterTag(string $fileName) :string
     {
+        $script = file_get_contents(dirname(__DIR__, 2) . '/public/js/script.js') . "\n";
         ob_start(); ?>
         </section>
         <script>
             const id = '/perf-reporter/<?= $fileName ?>';
-            <?= file_get_contents(dirname(__DIR__, 2) . '/public/js/script.js') . "\n" ?>
+            <?= $script ?>
         </script>
         </body>
         </html>
@@ -162,6 +170,7 @@ class TemplateBuilder extends FileSystem
             <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
             <meta http-equiv="X-UA-Compatible" content="ie=edge">
             <title><?= $title ?></title>
+            <link rel="icon" href="<?= self::convertImageToBase64(dirname(__DIR__, 2) . '/public/img/favicon.jpg') ?>">
             <style>
                 :root {
                     --primary-bg: #006FB8;
@@ -208,9 +217,10 @@ class TemplateBuilder extends FileSystem
         </main>
         <?php $content = ob_get_clean();
 
-        return self::mainTemplate('Perfs Reports List', $content);
+        return self::mainTemplate('Perf Reports List', $content);
     }
 
+    #[Pure]
     protected static function selectedReport(string $path) :string
     {
         return self::getSelectedReport($path);

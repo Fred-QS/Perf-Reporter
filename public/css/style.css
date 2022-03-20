@@ -45,12 +45,27 @@ ul {
     background-color: var(--primary-bg);
     color: var(--secondary-color);
     border-radius: 6px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     transition: all linear 0.2s;
 }
 
 #export-pdf:hover {
     background-color: var(--hover-bg);
     color: var(--hover-color);
+}
+
+#export-pdf svg {
+    width: 16px;
+    height: 16px;
+    color: inherit;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+#export-pdf svg path {
+    fill: currentColor;
 }
 
 #title {
