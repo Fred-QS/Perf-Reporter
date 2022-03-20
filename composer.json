@@ -13,8 +13,7 @@
   ],
   "require": {
     "php": ">=7.4",
-    "nesbot/carbon": "^2.57",
-    "dompdf/dompdf": "^1.2"
+    "nesbot/carbon": "^2.57"
   },
   "autoload": {
     "psr-4": {"Smile\\Perfreporter\\": "src/"}
