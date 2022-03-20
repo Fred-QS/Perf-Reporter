@@ -16,13 +16,18 @@ class DisplayPerfReportsController extends AbstractController
     #[Route('', name: 'perf-reporter:list')]
     public function display() :Response
     {
-        return new Response(PerformancesLogger::getReportList('html'));
+        return new Response(PerformancesLogger::setTimezone('Europe/Paris')
+            ->setLocale('fr')
+            ->getReportList('html'));
     }
 
     #[Route('/{id}', name: 'perf-reporter:one')]
     public function report(string $id) :Response
     {
-        $logs = PerformancesLogger::getReportList();
+        $logs = PerformancesLogger::setTimezone('Europe/Paris')
+            ->setLocale('fr')
+            ->getReportList();
+
         foreach ($logs as $log) {
             if ($log['id'] === $id) {
                 return new Response(PerformancesLogger::getReport($log['path']));

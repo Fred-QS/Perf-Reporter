@@ -61,13 +61,7 @@ class FileSystem
         $txt = self::$html;
         $txt .= "\n" . $lines;
         $txt .= "\n" . $footer;
-
-        $array = explode("\n", $txt);
-        $content = '';
-        foreach ($array as $row) {
-            $content .= trim(str_replace(["\r", "\n", "\t"], '', $row));
-        }
-        fwrite($create, $content);
+        fwrite($create, $txt);
         fclose($create);
 
         return $txt;
@@ -123,7 +117,9 @@ class FileSystem
                 unlink($dir);
                 return $name . '/ file has been removed.';
 
-            } else {
+            }
+
+            if ($folder === 'command') {
 
                 $excepts = ['.', '..'];
                 $files = scandir($dir);
@@ -143,13 +139,6 @@ class FileSystem
         }
 
         return $name . '/ does not exist.';
-    }
-
-    protected static function convertImageToBase64(string $path) :string
-    {
-        $type = pathinfo($path, PATHINFO_EXTENSION);
-        $data = file_get_contents($path);
-        return 'data:image/' . $type . ';base64,' . base64_encode($data);
     }
 
     protected static function addFolder($folder) :string

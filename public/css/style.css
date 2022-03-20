@@ -27,6 +27,30 @@ section {
     position: absolute;
 }
 
+#customer-logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 120px;
+    position: absolute;
+    z-index: 2;
+    top: 40px;
+    left: calc(10.5cm - 60px);
+    height: 60px;
+}
+
+#customer-logo.image img {
+    width: 100%;
+}
+
+#customer-logo.vector svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
 ul {
     width: 100%;
 }

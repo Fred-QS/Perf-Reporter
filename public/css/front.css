@@ -4,11 +4,7 @@ body {
     font-size: 16px;
 }
 
-main {
-    padding: 20px;
-}
-
-#reports-list {
+#reports-list, #params-list {
     margin-left: 20px;
     padding: 20px 0;
 }
@@ -22,6 +18,31 @@ main {
 
 #reports-list li a:hover, header p small a:hover {
     color: var(--primary-bg);
+}
+
+#reports-list li, #params-list li {
+    font-size: 14px;
+}
+
+#params-list li, #reports-list li a {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+#reports-list li svg, #params-list li svg {
+    color: inherit;
+    width: 16px;
+    height: 16px;
+    margin-right: 10px;
+}
+
+#reports-list li svg path, #params-list li svg path {
+    fill: currentColor;
+}
+
+#reports-list li:not(:first-of-type), #params-list li:not(:first-of-type)  {
+    margin-top: 8px;
 }
 
 header {
@@ -46,7 +67,7 @@ header p {
     flex-direction: column;
     text-align: center;
     font-size: 18px;
-    padding-right: 150px;
+    padding-right: 8%;
 }
 
 header p small {
@@ -54,13 +75,35 @@ header p small {
     color: #a1a1a1;
 }
 
-main {
+main, #params {
     width: 90%;
     max-width: 800px;
     margin: 40px auto;
     background-color: #fff;
     border-radius: 6px;
     box-shadow: 4px 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+#title {
+    background-color: var(--primary-bg);
+}
+
+#params > p {
+    background-color: var(--secondary-bg);
+}
+
+#params-list li span {
+    margin-left: 5px;
+    color: var(--primary-bg);
+    font-weight: bold;
+}
+
+#title, #params > p {
+    width: 100%;
+    padding: 5px 10px;
+    color: var(--secondary-color);
+    font-weight: bold;
 }
 
 @media only screen and (max-width: 780px) {
