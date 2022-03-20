@@ -189,7 +189,7 @@ class TemplateBuilder extends FileSystem
         ob_start(); ?>
         <header>
             <img id="smile-logo" src="<?= self::convertImageToBase64(dirname(__DIR__, 2) . '/public/img/logo.png') ?>" alt="Smile Open Source">
-            <p>Welcome to the Performance Report Package Page<br/><small>You must create reports by following the <a href="https://github.com/Fred-QS/PerformancesLogger/blob/main/README.md" target="_blank">README</a> file instructions</small></p>
+            <p>Welcome to the Performance Report Package Page<br/><small>You must create reports by following the <a href="https://github.com/Fred-QS/Perf-Reporter/blob/main/README.md" target="_blank">README</a> file instructions</small></p>
             <img id="symfony-logo" src="<?= self::convertImageToBase64(dirname(__DIR__, 2) . '/public/img/symfony.png') ?>" alt="Symfony">
         </header>
         <main>
