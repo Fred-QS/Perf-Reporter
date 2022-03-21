@@ -7,9 +7,9 @@ trait ConvertorsTrait
     protected static function convertMicrosecondsToHumanReadableFormat(float $micro) :string
     {
         $mili = $micro * 1000;
-        $res = number_format($mili, 4) . 'ms';
+        $res = round($mili, 4) . 'ms';
         if ($mili > 1000) {
-            $res = number_format($mili * 1000, 4) . 's';
+            $res = round($mili * 1000, 4) . 's';
         }
         return $res;
     }
