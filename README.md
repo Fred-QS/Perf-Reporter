@@ -73,7 +73,7 @@ PerformancesLogger::getReport(string $path);
 <hr>
 <h3>Usage</h3>
 
-In the file where the process start :
+In the file where the process works:
 ```php
 // ...
 use Smile\Perfreporter\Performers\PerformancesLogger;
@@ -89,7 +89,7 @@ $perfs::setStep(DETAIL_YOU_NEED_TO_FILL);
 $perfs::getResult();
 ```
 
-Because Smile\Perfreporter\Performers\PerformancesLogger is a static class, you can put some setStep() in any file where the process works and finish to use setRender() in the file where the process ends.
+Because <b>Smile\Perfreporter\Performers\PerformancesLogger</b> is a static class, you can put some <i>setStep()</i> in any file where the process works and finish to use setRender() in the file where the process ends.
 
 Where process starts
 ```php
