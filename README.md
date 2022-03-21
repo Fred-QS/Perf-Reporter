@@ -79,7 +79,7 @@ In the file where the process works:
 // ...
 use Smile\Perfreporter\Performers\PerformancesLogger;
 // ...
-$perfs = PerformancesLogger::setTitle(YOUR_CUSTOM_TILE)
+$perfs = PerformancesLogger::setTitle(YOUR_CUSTOM_TITLE)
             ->setTimezone('Europe/Paris')
             ->setLocale('fr')
             ->setAppOwnerLogo(PATH_TO_IMAGE)
@@ -97,7 +97,7 @@ Where process starts
 // ...
 use Smile\Perfreporter\Performers\PerformancesLogger;
 // ...
-$perfs = PerformancesLogger::setTitle(YOUR_CUSTOM_TILE)
+$perfs = PerformancesLogger::setTitle(YOUR_CUSTOM_TITLE)
             ->setTimezone('Europe/Paris')
             ->setLocale('fr')
             ->setAppOwnerLogo(PATH_TO_IMAGE)
