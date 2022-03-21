@@ -1,4 +1,5 @@
 # Perf Reporter
+[![PHP Composer](https://github.com/Fred-QS/Perf-Reporter/actions/workflows/php.yml/badge.svg)](https://github.com/Fred-QS/Perf-Reporter/actions/workflows/php.yml)
 
 Perf-Reporter is a package dedicated to Symfony 5 and more, allowing to measure the performance of the runtime through its execution time and the memory allocated to it.
 
@@ -89,7 +90,7 @@ $perfs::setStep(DETAIL_YOU_NEED_TO_FILL);
 $perfs::getResult();
 ```
 
-Because <b>Smile\Perfreporter\Performers\PerformancesLogger</b> is a static class, you can put some <i>setStep()</i> in any file where the process works and finish to use setRender() in the file where the process ends.
+Because <b>Smile\Perfreporter\Performers\PerformancesLogger</b> is a static class, you can put some <i>setStep()</i> in any file where the process works and finish to use <i>setRender()</i> in the file where the process ends.
 
 Where process starts
 ```php
