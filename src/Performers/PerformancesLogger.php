@@ -10,42 +10,69 @@ class PerformancesLogger extends TemplateBuilder
 {
     use ConvertorsTrait;
 
+    /**
+     * @param string $zone
+     * @return static
+     */
     public static function setTimezone(string $zone) :self
     {
         self::$timezone = $zone;
         return new self;
     }
 
+    /**
+     * @param string $locale
+     * @return static
+     */
     public static function setLocale(string $locale) :self
     {
         self::$locale = $locale;
         return new self;
     }
 
+    /**
+     * @return static
+     */
     public static function setStart() :self
     {
         self::$start = microtime(true);
         return new self;
     }
 
+    /**
+     * @param int $val
+     * @return static
+     */
     public static function setAlarmStep(int $val) :self
     {
         self::$alarm_step = $val;
         return new self;
     }
 
+    /**
+     * @param int $val
+     * @return static
+     */
     public static function setMax(int $val) :self
     {
         self::$max = $val;
         return new self;
     }
 
+    /**
+     * @param string $data
+     * @return static
+     */
     public static function setTitle(string $data) :self
     {
         self::$title = $data;
         return new self;
     }
 
+    /**
+     * @param string $data
+     * @return static
+     */
     public static function setAppOwnerLogo(string $data) :self
     {
         $authorized = ['jpg', 'jpeg', 'png', 'svg', 'bmp'];
@@ -64,6 +91,10 @@ class PerformancesLogger extends TemplateBuilder
         return new self;
     }
 
+    /**
+     * @param string $data
+     * @return static
+     */
     public static function setStep(string $data) :self
     {
         $stamp = microtime(true);
@@ -79,12 +110,20 @@ class PerformancesLogger extends TemplateBuilder
         return new self;
     }
 
+    /**
+     * @param string $key
+     * @param mixed $value
+     * @return static
+     */
     public static function setHeader(string $key, mixed $value) :self
     {
         self::$header[$key] = $value;
         return new self;
     }
 
+    /**
+     * @return string
+     */
     public static function getResult() :string
     {
         // Remove older files until files count = self::$max
@@ -97,7 +136,6 @@ class PerformancesLogger extends TemplateBuilder
         // Create Report file
         $file = self::createFile(
             $fileName,
-            self::$title,
             self::setHTMLHeadTag(
                 self::$title,
                 self::$app_owner_logo
@@ -106,7 +144,6 @@ class PerformancesLogger extends TemplateBuilder
 
         // Fill data in created file
         $content = self::fillFileLines(
-            $file,
             self::$header,
             self::$steps,
             self::$total
@@ -120,11 +157,18 @@ class PerformancesLogger extends TemplateBuilder
         );
     }
 
+    /**
+     * @return string
+     */
     public static function deleteReports() :string
     {
         return self::removeReportsFolder();
     }
 
+    /**
+     * @param string $mode
+     * @return string|array
+     */
     public static function getReportList(string $mode = '') : string|array
     {
         if ($mode === 'html') {
@@ -133,6 +177,10 @@ class PerformancesLogger extends TemplateBuilder
         return self::getExistingReports();
     }
 
+    /**
+     * @param string $path
+     * @return string
+     */
     #[Pure]
     public static function getReport(string $path) :string
     {

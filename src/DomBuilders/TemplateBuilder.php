@@ -11,17 +11,52 @@ class TemplateBuilder extends FileSystem
 {
     use ConvertorsTrait;
 
+    /**
+     * @var string
+     */
     protected static string $title = 'Performances and Measurement';
+    /**
+     * @var string
+     */
     protected static string $app_owner_logo = '';
+    /**
+     * @var float|int
+     */
     protected static float $start = 0;
+    /**
+     * @var float|int
+     */
     protected static float $total = 0;
+    /**
+     * @var array
+     */
     protected static array $steps = [];
+    /**
+     * @var array
+     */
     protected static array $header = [];
+    /**
+     * @var int
+     */
     protected static int $alarm_step = 3;
+    /**
+     * @var int
+     */
     protected static int $max = 4;
+    /**
+     * @var string
+     */
     protected static string $timezone = 'Europe/London';
+    /**
+     * @var string
+     */
     protected static string $locale = 'en';
 
+    /**
+     * @param string $title
+     * @param string $logo
+     * @return string
+     */
     protected static function setHTMLHeadTag(string $title, string $logo) :string
     {
         date_default_timezone_set(self::$timezone);
@@ -58,8 +93,8 @@ class TemplateBuilder extends FileSystem
         <section>
         <img id="smile-logo" src="<?= self::convertImageToBase64(dirname(__DIR__, 2) . '/public/img/logo.png') ?>" alt="Smile Open Source">
         <?php if ($logo !== ''): ?>
-        <?= $logo ?>
-    <?php endif; ?>
+            <?= $logo ?>
+        <?php endif; ?>
         <div id="title">
             <small>SMILE - Perf Reporter Logs</small>
             <h1><?= $title ?></h1>
@@ -68,6 +103,10 @@ class TemplateBuilder extends FileSystem
         <?php return ob_get_clean();
     }
 
+    /**
+     * @param string $fileName
+     * @return string
+     */
     protected static function setHTMLFooterTag(string $fileName) :string
     {
         $script = file_get_contents(dirname(__DIR__, 2) . '/public/js/script.js') . "\n";
@@ -82,7 +121,13 @@ class TemplateBuilder extends FileSystem
         <?php return ob_get_clean();
     }
 
-    protected static function fillFileLines(string $file, array $header, array $steps, float $total) :string
+    /**
+     * @param array $header
+     * @param array $steps
+     * @param float $total
+     * @return string
+     */
+    protected static function fillFileLines(array $header, array $steps, float $total) :string
     {
         $parsed_header = self::parseToList($header);
         $parsed_steps = self::stepsParser($steps);
@@ -92,6 +137,10 @@ class TemplateBuilder extends FileSystem
         <?php return ob_get_clean();
     }
 
+    /**
+     * @param array $arr
+     * @return string
+     */
     private static function parseToList(array $arr) :string
     {
         $array = [];
@@ -134,6 +183,10 @@ class TemplateBuilder extends FileSystem
         return $html;
     }
 
+    /**
+     * @return string
+     */
+    #[Pure]
     private static function totalRender(): string
     {
         $color = 'var(--primary-bg)';
@@ -152,6 +205,10 @@ class TemplateBuilder extends FileSystem
         return $html;
     }
 
+    /**
+     * @param $steps
+     * @return string
+     */
     private static function stepsParser($steps) : string
     {
         $html = '<div id="steps-container"><p class="steps-title">Steps</p>';
@@ -177,6 +234,9 @@ class TemplateBuilder extends FileSystem
         return $html;
     }
 
+    /**
+     * @return array
+     */
     protected static function getExistingReports() :array
     {
         $files = (file_exists(self::$reportFolder)) ? scandir(self::$reportFolder) : [];
@@ -205,6 +265,11 @@ class TemplateBuilder extends FileSystem
         return $exists;
     }
 
+    /**
+     * @param string $title
+     * @param string $content
+     * @return string
+     */
     private static function mainTemplate(string $title, string $content) :string
     {
         ob_start(); ?>
@@ -236,6 +301,9 @@ class TemplateBuilder extends FileSystem
         <?php return ob_get_clean();
     }
 
+    /**
+     * @return string
+     */
     protected static function setHTMLListForFrontEnd() :string
     {
         $exists = self::getExistingReports();
@@ -299,6 +367,10 @@ class TemplateBuilder extends FileSystem
         return self::mainTemplate('Perf Reports List', $content);
     }
 
+    /**
+     * @param string $path
+     * @return string
+     */
     #[Pure]
     protected static function selectedReport(string $path) :string
     {

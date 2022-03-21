@@ -2,14 +2,21 @@
 
 namespace Smile\Perfreporter;
 
+use ErrorException;
 use Smile\Perfreporter\DomBuilders\FileSystem;
 
 define('DEPLOYER_FILE_PATH', explode('/vendor', __DIR__)[0]);
 
 class FilesDeployer extends FileSystem
 {
+    /**
+     * @var string
+     */
     private static string $path = DEPLOYER_FILE_PATH . '/src';
 
+    /**
+     * @return void
+     */
     public static function add() :void
     {
         if (file_exists(self::$path)) {
@@ -21,15 +28,17 @@ class FilesDeployer extends FileSystem
                 echo $message . "\n\n";
                 return;
 
-            } catch (\ErrorException $e) {
+            } catch (ErrorException $e) {
                 echo "\n\n" . 'An error has occurred: ' . $e->getMessage() . "\n\n";
                 return;
             }
         }
         echo "\n" . '<your_project>/src folder does not exist. Are you sure this is a Symfony project ?' . "\n\n";
-        return;
     }
 
+    /**
+     * @return void
+     */
     public static function remove() :void
     {
         if (file_exists(self::$path)) {
@@ -43,12 +52,11 @@ class FilesDeployer extends FileSystem
                 echo "\n" . $message . "\n\n";
                 return;
 
-            } catch (\ErrorException $e) {
+            } catch (ErrorException $e) {
                 echo "\n" . 'An error has occurred: ' . $e->getMessage() . "\n\n";
                 return;
             }
         }
         echo "\n\n" . '<your_project>/src folder does not exist. Are you sure this is a Symfony project ?' . "\n\n";
-        return;
     }
 }

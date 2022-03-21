@@ -6,10 +6,21 @@ define("SMILE_REPORTS_PATH", explode('vendor', __DIR__)[0] . 'reports');
 
 class FileSystem
 {
+    /**
+     * @var string
+     */
     protected static string $reportFolder = SMILE_REPORTS_PATH;
+    /**
+     * @var string
+     */
     private static string $html = '';
 
-    protected static function createFile(string $fileName, string $title, string $head) :string
+    /**
+     * @param string $fileName
+     * @param string $head
+     * @return string
+     */
+    protected static function createFile(string $fileName, string $head) :string
     {
         if (!file_exists(self::$reportFolder) && !mkdir(self::$reportFolder, 0777, true) && !is_dir(self::$reportFolder)) {
 
@@ -21,6 +32,10 @@ class FileSystem
         return $file;
     }
 
+    /**
+     * @param int $max
+     * @return void
+     */
     protected static function cleanFiles(int $max) :void
     {
         $dir = self::$reportFolder;
@@ -55,6 +70,12 @@ class FileSystem
         }
     }
 
+    /**
+     * @param string $file
+     * @param string $lines
+     * @param string $footer
+     * @return string
+     */
     protected static function reportFileClosure(string $file, string $lines, string $footer) :string
     {
         $create = fopen($file, 'wb');
@@ -67,6 +88,9 @@ class FileSystem
         return $txt;
     }
 
+    /**
+     * @return string
+     */
     protected static function removeReportsFolder() :string
     {
         if (file_exists(self::$reportFolder)) {
@@ -90,6 +114,10 @@ class FileSystem
         return 'reports/ folder does not exist.';
     }
 
+    /**
+     * @param string $folder
+     * @return string
+     */
     protected static function removeAddedFolders(string $folder) :string
     {
         $dir = null;
@@ -141,6 +169,10 @@ class FileSystem
         return $name . '/ does not exist.';
     }
 
+    /**
+     * @param $folder
+     * @return string
+     */
     protected static function addFolder($folder) :string
     {
         $dest = null;
@@ -197,6 +229,10 @@ class FileSystem
         return $name . '/ does not exist.';
     }
 
+    /**
+     * @param string $path
+     * @return string
+     */
     protected static function getSelectedReport(string $path) :string
     {
         return file_get_contents($path);

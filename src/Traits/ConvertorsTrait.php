@@ -4,22 +4,34 @@ namespace Smile\Perfreporter\Traits;
 
 trait ConvertorsTrait
 {
+    /**
+     * @param float $micro
+     * @return string
+     */
     protected static function convertMicrosecondsToHumanReadableFormat(float $micro) :string
     {
-        $mili = $micro * 1000;
-        $res = round($mili, 4) . 'ms';
-        if ($mili > 1000) {
-            $res = round($mili / 1000, 4) . 's';
+        $milli = $micro * 1000;
+        $res = round($milli, 4) . 'ms';
+        if ($milli > 1000) {
+            $res = round($milli / 1000, 4) . 's';
         }
         return $res;
     }
 
+    /**
+     * @param int $bytes
+     * @return string
+     */
     protected static function convertBytesToHumanReadableFormat(int $bytes) :string
     {
         $i = floor(log($bytes, 1024));
         return round($bytes / (1024 ** $i), [0,0,2,2,3][$i]).['B','kB','MB','GB','TB'][$i];
     }
 
+    /**
+     * @param string $date
+     * @return string
+     */
     protected static function convertDateFromFileName(string $date) :string
     {
         $date = str_replace('-perf-report.html', '', $date);
@@ -32,6 +44,10 @@ trait ConvertorsTrait
         return $y . '-' . $m . '-' . $d . ' ' . $h . ':' . $i . ':' . $s;
     }
 
+    /**
+     * @param string $path
+     * @return string
+     */
     protected static function convertImageToBase64(string $path) :string
     {
         $type = pathinfo($path, PATHINFO_EXTENSION);

@@ -13,6 +13,9 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 #[Route('/perf-reporter')]
 class DisplayPerfReportsController extends AbstractController
 {
+    /**
+     * @return Response
+     */
     #[Route('', name: 'perf-reporter:list')]
     public function display() :Response
     {
@@ -21,6 +24,10 @@ class DisplayPerfReportsController extends AbstractController
             ->getReportList('html'));
     }
 
+    /**
+     * @param string $id
+     * @return Response
+     */
     #[Route('/{id}', name: 'perf-reporter:one')]
     public function report(string $id) :Response
     {

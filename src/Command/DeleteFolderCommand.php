@@ -17,15 +17,29 @@ use Smile\PerfreporterBundle\Performers\PerformancesLogger;
 )]
 class DeleteFolderCommand extends Command
 {
-    protected static $defaultName = 'app:perfReport:delete';
-    protected static $defaultDescription = 'Delete "reports/ folder.';
+    /**
+     * @var string
+     */
+    protected static string $defaultName = 'app:perfReport:delete';
+    /**
+     * @var string
+     */
+    protected static string $defaultDescription = 'Delete "reports/ folder.';
 
+    /**
+     * @return void
+     */
     protected function configure(): void
     {
         $this->setHelp('This command allows you to delete the reports/ folder, created by using the smilian/perfs-reporter package. The folder will be created automatically on next use of this package.')
         ;
     }
 
+    /**
+     * @param InputInterface $input
+     * @param OutputInterface $output
+     * @return int
+     */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $output->writeln([
