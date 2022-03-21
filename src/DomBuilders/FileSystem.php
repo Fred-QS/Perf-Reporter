@@ -98,12 +98,12 @@ class FileSystem
         switch ($folder) {
 
             case 'command':
-                $dir = dirname(self::$reportFolder . '/src/Command/PerfReporter');
+                $dir = dirname(self::$reportFolder) . '/src/Command/PerfReporter';
                 $name = 'Command/PerfReporter';
                 break;
 
             case 'controller':
-                $dir = dirname(self::$reportFolder . '/src/Controller/DisplayPerfReportsController.php');
+                $dir = dirname(self::$reportFolder) . '/src/Controller/DisplayPerfReportsController.php';
                 $name = 'Controller/DisplayPerfReportsController.php';
                 break;
 
@@ -115,7 +115,7 @@ class FileSystem
             if ($folder === 'controller') {
 
                 unlink($dir);
-                return $name . '/ file has been removed.';
+                return $name . ' file has been removed.';
 
             }
 
