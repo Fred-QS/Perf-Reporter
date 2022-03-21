@@ -22,6 +22,18 @@ class PerformancesLogger extends TemplateBuilder
         return new self;
     }
 
+    public static function setStart() :self
+    {
+        self::$start = microtime(true);
+        return new self;
+    }
+
+    public static function setAlarmStep(int $val) :self
+    {
+        self::$alarm_step = $val;
+        return new self;
+    }
+
     public static function setMax(int $val) :self
     {
         self::$max = $val;
@@ -52,22 +64,18 @@ class PerformancesLogger extends TemplateBuilder
         return new self;
     }
 
-    public static function setTotal(int $data) :self
-    {
-        self::$total = $data;
-        return new self;
-    }
-
     public static function setStep(string $data) :self
     {
-        $time = microtime(true);
+        $stamp = microtime(true);
+        $time = self::convertMicrosecondsToHumanReadableFormat($stamp - self::$start);
         self::$steps[] = [
             'Information' => $data,
             'Trace' => debug_backtrace(),
             'Time lapse' => $time,
-            'Memory usage' => memory_get_usage()
+            'Memory usage' => self::convertBytesToHumanReadableFormat(memory_get_usage())
         ];
-        self::$total += $time;
+        self::$total += $stamp - self::$start;
+        self::$start = $stamp;
         return new self;
     }
 

@@ -6,12 +6,18 @@ trait ConvertorsTrait
 {
     protected static function convertMicrosecondsToHumanReadableFormat(float $micro) :string
     {
-        return 'test';
+        $mili = $micro * 1000;
+        $res = number_format($mili, 4) . 'ms';
+        if ($mili > 1000) {
+            $res = number_format($mili * 1000, 4) . 's';
+        }
+        return $res;
     }
 
-    protected static function convertBytesToHumanReadableFormat(int $val) :string
+    protected static function convertBytesToHumanReadableFormat(int $bytes) :string
     {
-        return 'test';
+        $i = floor(log($bytes, 1024));
+        return round($bytes / (1024 ** $i), [0,0,2,2,3][$i]).['B','kB','MB','GB','TB'][$i];
     }
 
     protected static function convertDateFromFileName(string $date) :string
