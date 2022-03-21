@@ -20,11 +20,11 @@ class DeleteFolderCommand extends Command
     /**
      * @var string
      */
-    protected static string $defaultName = 'app:perfReport:delete';
+    protected static $defaultName = 'app:perfReport:delete';
     /**
      * @var string
      */
-    protected static string $defaultDescription = 'Delete "reports/ folder.';
+    protected static $defaultDescription = 'Delete "reports/ folder.';
 
     /**
      * @return void
