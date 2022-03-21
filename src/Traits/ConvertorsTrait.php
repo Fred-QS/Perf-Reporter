@@ -9,7 +9,7 @@ trait ConvertorsTrait
         $mili = $micro * 1000;
         $res = round($mili, 4) . 'ms';
         if ($mili > 1000) {
-            $res = round($mili * 1000, 4) . 's';
+            $res = round($mili / 1000, 4) . 's';
         }
         return $res;
     }
