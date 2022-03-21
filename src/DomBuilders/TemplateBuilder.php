@@ -179,7 +179,7 @@ class TemplateBuilder extends FileSystem
 
     protected static function getExistingReports() :array
     {
-        $files = scandir(self::$reportFolder);
+        $files = (file_exists(self::$reportFolder)) ? scandir(self::$reportFolder) : [];
         $exists = [];
         $excepts = ['.', '..'];
 
